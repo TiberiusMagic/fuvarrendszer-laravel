@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('email')->primary();
+            $table->string('name');
+            $table->string('password');
+            $table->enum('role', ['Admin', 'Driver']);
         });
     }
 
