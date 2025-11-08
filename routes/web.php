@@ -29,6 +29,9 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/admin/jobs', [AdminController::class, 'storeJob'])->name('admin.job.store');
     Route::post('/admin/jobs/{job}/assign', [AdminController::class, 'assignDriver'])
      ->name('admin.jobs.assign')->middleware(['auth', 'role:Admin']);
+    Route::get('/jobs/{job}/edit', [AdminController::class, 'editJob'])->name('admin.job.edit');
+    Route::put('/jobs/{job}', [AdminController::class, 'updateJob'])->name('admin.job.update');
+    Route::delete('/jobs/{job}', [AdminController::class, 'destroyJob'])->name('admin.job.destroy');
 });
 
 // Fuvarozó felület

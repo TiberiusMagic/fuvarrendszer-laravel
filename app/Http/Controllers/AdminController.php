@@ -60,4 +60,31 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Fuvarozó hozzárendelve.');
     }
 
+    public function editJob(Job $job)
+    {
+        $drivers = User::where('role', 'Driver')->get();
+        return view('admin.edit-job', compact('job', 'drivers'));
+    }
+
+    public function updateJob(Request $request, Job $job)
+    {
+        $validated = $request->validate([
+            'start_address' => 'required|string|max:255',
+            'destination_address' => 'required|string|max:255',
+            'recipient_name' => 'required|string|max:255',
+            'recipient_phone' => 'required|string|max:50',
+            'driver_email' => 'required|email|exists:users,email',
+        ]);
+
+        $job->update($validated);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Munka frissítve!');
+    }
+
+    public function destroyJob(Job $job)
+    {
+        $job->delete();
+        return redirect()->route('admin.dashboard')->with('success', 'Munka törölve!');
+    }
+
 }
