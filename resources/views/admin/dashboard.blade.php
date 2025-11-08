@@ -5,6 +5,17 @@
 @section('content')
 <h2 class="text-2xl font-bold mb-4">Admin Felület</h2>
 
+@if ($failedJobsCount > 0 && $statusFilter !== 'Failed')
+    <div id="failed-alert" class="alert alert-danger" style="background-color: red;">
+        ⚠️ 
+        <a href="{{ route('admin.dashboard', ['status' => 'Failed', 'scroll' => 'true']) }}"
+           class="text-red-800 underline hover:text-red-900" 
+           id="failed-alert-link">
+           {{ $failedJobsCount }} sikertelen munka van - kattints ide a megtekintésükhöz!
+        </a>
+    </div>
+@endif
+
 <div class="mb-6 p-4 border rounded bg-white">
     <h3 class="font-semibold mb-2">Új munka létrehozása</h3>
     <form action="{{ route('admin.job.store') }}" method="POST">

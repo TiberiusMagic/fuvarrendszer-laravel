@@ -25,6 +25,7 @@ class AdminController extends Controller
 
         $jobs = $query->orderBy('created_at', 'desc')->get();
         $drivers = User::query()->where('role', 'Driver')->get();
+        $failedJobsCount = Job::query()->where('status', 'Failed')->count();
 
         $statuses = [
             'All' => 'Összes',
@@ -34,7 +35,7 @@ class AdminController extends Controller
             'Failed' => 'Sikertelen',
         ];
 
-        return view('admin.dashboard', compact('jobs', 'statuses', 'statusFilter', 'drivers'));
+        return view('admin.dashboard', compact('jobs', 'statuses', 'statusFilter', 'drivers', 'failedJobsCount'));
     }
 
     public function createJob()
