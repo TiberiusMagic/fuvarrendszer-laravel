@@ -19,7 +19,6 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        // IDE-barát: Auth::check() és Auth::user()
         if (! Auth::check() || Auth::user()->role !== $role) {
             abort(403, 'Nincs jogosultságod ehhez az oldalhoz.');
         }

@@ -11,8 +11,15 @@
     <nav class="shadow-md p-4 flex justify-between" style="background-color:lightgreen">
         <h1 class="text-xl font-bold">FuvarozóApp</h1>
         <div class="space-x-4">
+        @auth
+            <form method="POST" action="{{ route('logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="text-red-500 hover:underline">Kijelentkezés</button>
+            </form>
+        @else
             <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Regisztráció</a>
             <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Bejelentkezés</a>
+        @endauth
         </div>
     </nav>
 

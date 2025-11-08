@@ -39,12 +39,10 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <!-- Admin checkbox -->
-        <div class="mt-4">
-            <label class="inline-flex items-center">
-                <input type="checkbox" name="is_admin" class="rounded">
-                <span class="ml-2 text-sm text-gray-600" style="margin: 5px;">Adminisztrátorként regisztrálok</span>
-            </label>
+        <!-- Szerepkör rádiógombok -->
+        <div class="form-group">
+            <label><input type="radio" name="role" value="Driver" checked> Fuvarozó</label>
+            <label><input type="radio" name="role" value="Admin"> Adminisztrátor</label>
         </div>
 
         <div class="flex items-center justify-end mt-4">
