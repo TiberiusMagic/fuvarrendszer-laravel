@@ -25,11 +25,18 @@ Route::get('/dashboard', function () {
 // Admin felület
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/jobs/create', [AdminController::class, 'createJob'])->name('admin.jobs.create');
+    Route::post('/admin/jobs', [AdminController::class, 'storeJob'])->name('admin.job.store');
+    Route::post('/admin/jobs/{job}/assign', [AdminController::class, 'assignDriver'])
+     ->name('admin.jobs.assign')->middleware(['auth', 'role:Admin']);
 });
 
 // Fuvarozó felület
 Route::middleware(['auth', 'role:Driver'])->group(function () {
     Route::get('/driver/dashboard', [DriverController::class, 'index'])->name('driver.dashboard');
+    Route::post('/driver/jobs/{job}/status', [DriverController::class, 'updateStatus'])->name('driver.jobs.updateStatus');
+    Route::post('/driver/jobs/{job}/status', [DriverController::class, 'updateStatus'])
+     ->name('driver.jobs.updateStatus')->middleware(['auth', 'role:Driver']);
 });
 
 Route::middleware('auth')->group(function () {
