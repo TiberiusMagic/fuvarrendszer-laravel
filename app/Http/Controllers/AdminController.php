@@ -13,11 +13,28 @@ class AdminController extends Controller
         $this->middleware(['auth', 'role:Admin']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $drivers = User::where('role', 'Driver')->get();
-        $jobs = Job::all();
-        return view('admin.dashboard', compact('drivers', 'jobs'));
+        $statusFilter = $request->query('status');
+
+        $query = Job::query();
+
+        if ($statusFilter && $statusFilter !== 'All') {
+            $query->where('status', $statusFilter);
+        }
+
+        $jobs = $query->orderBy('created_at', 'desc')->get();
+        $drivers = User::query()->where('role', 'Driver')->get();
+
+        $statuses = [
+            'All' => 'Összes',
+            'Assigned' => 'Kiosztva',
+            'InProgress' => 'Folyamatban',
+            'Successful' => 'Elvégezve',
+            'Failed' => 'Sikertelen',
+        ];
+
+        return view('admin.dashboard', compact('jobs', 'statuses', 'statusFilter', 'drivers'));
     }
 
     public function createJob()

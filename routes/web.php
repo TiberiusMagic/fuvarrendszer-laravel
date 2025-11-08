@@ -40,6 +40,7 @@ Route::middleware(['auth', 'role:Driver'])->group(function () {
     Route::post('/driver/jobs/{job}/status', [DriverController::class, 'updateStatus'])->name('driver.jobs.updateStatus');
     Route::post('/driver/jobs/{job}/status', [DriverController::class, 'updateStatus'])
      ->name('driver.jobs.updateStatus')->middleware(['auth', 'role:Driver']);
+    Route::put('/jobs/{job}/status', [DriverController::class, 'updateStatus'])->name('driver.job.updateStatus');
 });
 
 Route::middleware('auth')->group(function () {

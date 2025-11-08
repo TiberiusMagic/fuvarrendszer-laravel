@@ -39,6 +39,19 @@
 
 <div class="p-4 border rounded bg-white">
     <h3 class="font-semibold mb-2">Összes munka</h3>
+
+    <form method="GET" action="{{ route('admin.dashboard') }}" class="mb-4 flex items-center gap-2">
+        <label for="status" class="font-semibold">Szűrés státusz szerint:</label>
+        <select name="status" id="status" class="border rounded p-1">
+            @foreach($statuses as $value => $label)
+                <option value="{{ $value }}" {{ $statusFilter === $value ? 'selected' : '' }}>
+                    {{ $label }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded" style="background-color: blue;">Szűrés</button>
+    </form>
+
     <table class="w-full border">
         <thead>
             <tr class="border-b">
